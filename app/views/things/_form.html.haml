@@ -1,0 +1,12 @@
+= form_for(@thing) do |f|
+  - if @thing.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@thing.errors.count, "error")
+        prohibited this thing from being saved:
+      %ul
+        - @thing.errors.full_messages.each do |message|
+          %li= message
+  = f.text_field :content, autofocus: true
+.actions
+  = link_to "Or, browse things you've done", things_path

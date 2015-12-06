@@ -5,7 +5,7 @@ class ThingsController < ApplicationController
   # GET /things.json
   def index
     if query = params[:query]
-      @results = Thing.where("content like ?", "#{query}%")
+      @results = Thing.where("content like ?", "%#{query}%")
     end
   end
 
@@ -26,10 +26,13 @@ class ThingsController < ApplicationController
   # POST /things
   # POST /things.json
   def create
-    @thing = Thing.new(thing_params)
+    @thing = Thing.find_or_create_by content: thing_params[:content]
+
+    # Create the first occurrence, or add a new one
+    occurrence = @thing.occurrences.build
 
     respond_to do |format|
-      if @thing.save
+      if @thing.save && occurrence.save
         format.html { redirect_to things_url, notice: 'Thing was successfully created.' }
         format.json { render :show, status: :created, location: @thing }
       else

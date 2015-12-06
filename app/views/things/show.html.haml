@@ -1,0 +1,9 @@
+%p#notice= notice
+%h2.title= "I just... #{@thing.content}"
+.occurrences
+  - @thing.occurrences.each do |occurrence|
+    = render partial: 'occurrences/occurrence', object: occurrence
+.actions
+  = link_to 'Add occurrence', new_thing_occurrence_path(@thing)
+  = link_to 'Edit', edit_thing_path(@thing)
+  = link_to 'Back', things_path

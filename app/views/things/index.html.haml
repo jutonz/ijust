@@ -1,0 +1,15 @@
+%p#notice= notice
+%h2.title When was the last time I...
+= form_tag("/things", method: 'get') do
+  = text_field_tag(:query, '', autofocus: true, autocomplete: "off")
+.actions
+  = link_to 'List all', things_path(query: '')
+  = link_to 'Add a thing', new_thing_path
+- if @results
+  - if @results.empty?
+    %p No results :(
+  - else
+    %p.result_count
+      Total results: #{@results.count}
+  - @results.each do |thing|
+    = render partial: 'things/thing', object: thing

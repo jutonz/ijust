@@ -11,15 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151205142957) do
+ActiveRecord::Schema.define(version: 20151206162323) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "occurrences", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "thing_id"
+  end
+
+  add_index "occurrences", ["thing_id"], name: "index_occurrences_on_thing_id", using: :btree
 
   create_table "things", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "content"
   end
+
+  add_index "things", ["content"], name: "index_things_on_content", unique: true, using: :btree
 
 end

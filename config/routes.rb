@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :things
+  resources :things do
+    resources :occurrences
+  end
 
   root 'things#new'
   get 'search', to: 'things#search'
