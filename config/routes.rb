@@ -5,4 +5,6 @@ Rails.application.routes.draw do
 
   root 'things#new'
   get 'search', to: 'things#search'
+
+  mount Ijust::API => '/'
 end

@@ -35,6 +35,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use haml for html zen
 gem 'haml-rails'
 
+# Use grape for api things
+gem 'grape'
+
+# To let grape validate its own params
+gem 'hashie-forbidden_attributes'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
