@@ -1,4 +1,4 @@
-= link_to thing_path(thing) do
-  .thing
+.thing
+  = link_to thing_path(thing), class: "thing-link" do
     %span.content= "#{thing.content}: "
     %span.date= "#{time_ago_in_words(thing.created_at)} ago"

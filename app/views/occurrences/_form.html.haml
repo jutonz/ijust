@@ -1,0 +1,6 @@
+= form_for [@thing, @occurrence] do |f|
+  = f.datetime_select :created_at, autofocus: true
+  %br
+  = f.submit
+.actions
+  = link_to "Back", :back

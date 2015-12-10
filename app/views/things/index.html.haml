@@ -1,7 +1,7 @@
 %p#notice= notice
 %h2.title When was the last time I...
 = form_tag("/things", method: 'get') do
-  = text_field_tag(:query, '', autofocus: true, autocomplete: "off")
+  = text_field_tag(:query, '', autofocus: true, autocomplete: "off", class: "search")
 .actions
   = link_to 'List all', things_path(query: '')
   = link_to 'Add a thing', new_thing_path
