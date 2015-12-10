@@ -1,4 +1,6 @@
 class OccurrencesController < ApplicationController
+  before_action :find_thing, only: %i(new create)
+  before_action :find_occurrence, only: %i(destroy)
 
   def new
     @thing = Thing.find params[:thing_id]
@@ -30,5 +32,13 @@ class OccurrencesController < ApplicationController
 
   def occurrence_params
     params.require(:occurrence).permit(:thing_id, :created_at)
+  end
+
+  def find_thing
+    @thing = Thing.find params[:thing_id]
+  end
+
+  def find_occurrence
+    @occurrence = Occurrence.find params[:id]
   end
 end
