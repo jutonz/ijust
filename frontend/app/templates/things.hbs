@@ -3,6 +3,6 @@
 <h3>Search things</h3>
 {{input type="text" value=query key-press="setQuery" autofocus="true"}}
 {{#each filteredThings as |thing|}}
-  {{thing-partial model=thing}}<br>
+  {{thing-box model=thing}}<br>
 {{/each}}
 
