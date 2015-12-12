@@ -1,8 +1,8 @@
 {{outlet}}
 
-<h1>hi</h1>
-
-{{#each model as |thing|}}
+<h3>Search things</h3>
+{{input type="text" value=query key-press="setQuery" autofocus="true"}}
+{{#each filteredThings as |thing|}}
   {{thing-partial model=thing}}<br>
 {{/each}}
 
