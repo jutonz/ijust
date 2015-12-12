@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
-  resources :things do
-    resources :occurrences
-  end
+  mount Ijust::API => '/api'
 
-  root 'things#new'
-  get 'search', to: 'things#search'
-
-  mount Ijust::API => '/'
+  mount_ember_app :frontend, to: "/"
 end

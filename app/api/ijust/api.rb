@@ -2,7 +2,7 @@ module Ijust
   class API < Grape::API
     version "v1", using: :header, vendor: :ijust
     format :json
-    prefix :api
+    formatter :json, Grape::Formatter::ActiveModelSerializers
 
     resource :things do
 
@@ -19,10 +19,19 @@ module Ijust
         optional :created_at, type: Time, default: Time.now, desc: "When it happened. Default is now"
       end
       post do
-        Thing.create!({
-          content:    params[:content],
-          created_at: params[:created_at]
-        })
+
+        if thing = Thing.find_by(content: params[:content])
+          occurrence = thing.occurrences.build({
+            created_at: params[:created_at]
+          })
+          occurrence.save
+        else
+          Thing.create!({
+            content:    params[:content],
+            created_at: params[:created_at]
+          })
+        end
+
       end
 
       segment "/:thing_id" do

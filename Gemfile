@@ -37,9 +37,15 @@ gem 'haml-rails'
 
 # Use grape for api things
 gem 'grape'
+gem 'grape-active_model_serializers'
 
 # To let grape validate its own params
 gem 'hashie-forbidden_attributes'
+
+# For ember!
+gem 'ember-cli-rails', "~> 0.6.0"
+
+gem 'puma'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
