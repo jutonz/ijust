@@ -5,6 +5,19 @@ module Ijust
     formatter :json, Grape::Formatter::ActiveModelSerializers
 
     resource :occurrences do
+
+      desc "Create an occurrence"
+      params do
+        requires :thing_id, type: Integer, desc: "ID of the associated thing"
+        optional :created_at, type: Time, default: Time.now, desc: "When it happened. Default is now"
+      end
+      post do
+        thing = Thing.find(params[:thing_id])
+        occurrence = thing.occurrences.build({
+          created_at: params[:created_at]
+        }).save
+        occurrence
+      end
       route_param :id do
 
         # GET /occurrences/:id

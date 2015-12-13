@@ -9,6 +9,11 @@ export default Ember.Component.extend({
   actions: {
     expand: function(thing) {
       thing.toggleProperty('expanded');
+    },
+
+    addOccurrence: function(thing) {
+      console.log('stage 1');
+      this.sendAction('addOccurrence', thing);
     }
   }
 });
