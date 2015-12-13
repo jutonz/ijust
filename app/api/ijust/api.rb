@@ -4,6 +4,18 @@ module Ijust
     format :json
     formatter :json, Grape::Formatter::ActiveModelSerializers
 
+    resource :occurrences do
+      route_param :id do
+
+        # GET /occurrences/:id
+        desc "Get an occurrence"
+        get do
+          Occurrence.find params[:id]
+        end
+
+      end
+    end
+
     resource :things do
 
       # GET /things
@@ -19,7 +31,6 @@ module Ijust
         optional :created_at, type: Time, default: Time.now, desc: "When it happened. Default is now"
       end
       post do
-
         if thing = Thing.find_by(content: params[:content])
           occurrence = thing.occurrences.build({
             created_at: params[:created_at]
@@ -31,7 +42,6 @@ module Ijust
             created_at: params[:created_at]
           })
         end
-
       end
 
       segment "/:thing_id" do
@@ -62,12 +72,6 @@ module Ijust
               created_at: params[:created_at]
             })
             occurrence.save
-          end
-
-          # GET /things/:thing_id/occurrences/:occurrence_id
-          desc "Get a specific thing occurrence"
-          get "/:occurrence_id" do
-            Occurrence.find params[:occurrence_id]
           end
 
           # DELETE /things/:thing_id/occurrences/:occurrence_id

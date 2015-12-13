@@ -1,7 +1,9 @@
 import Ember from 'ember';
 
+const { inject, computed } = Ember;
+
 export default Ember.Component.extend({
-  thing: Ember.computed.alias('model'),
+  thing: computed.alias('model'),
   expanded: false,
 
   actions: {

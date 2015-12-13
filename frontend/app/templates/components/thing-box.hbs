@@ -3,6 +3,11 @@
 
   {{#if thing.expanded}}
     {{thing.created_at}}
+    <br>
+    {{#each thing.occurrences as |occurrence|}}
+      On: {{occurrence.created_at}}<br>
+    {{/each}}
+    <button {{action "addOccurrence" thing}}>Add occurrence</button>
   {{/if}}
 </div>
 

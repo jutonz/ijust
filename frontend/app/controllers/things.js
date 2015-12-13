@@ -4,7 +4,9 @@ export default Ember.Controller.extend({
   queryParams: ['query'],
   query: '',
 
-  filteredThings: Ember.computed('query', 'model.@each', function() {
+  thing: Ember.computed.alias('model'),
+
+  filteredThings: Ember.computed('query', 'model.[]', function() {
     return this.get('model').filter((thing) => {
       let content = thing.get('content');
       let query   = this.get('query');
