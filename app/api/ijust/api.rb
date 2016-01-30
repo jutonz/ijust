@@ -34,7 +34,14 @@ module Ijust
       # GET /things
       desc "Get things"
       get do
-        Thing.all
+        if (qs = request.query_string).empty?
+          Thing.all
+        else
+          qs = Rack::Utils.parse_nested_query qs
+          if content = qs["content"]
+            Thing.where "content LIKE '%#{content}%'"
+          end
+        end
       end
 
       # POST /things

@@ -7,9 +7,9 @@ export default Ember.Route.extend({
 
   actions: {
     addOccurrence: function(thing) {
-      console.log("hello from the route");
-      console.log('adding occurrence to', thing.get('content'), 'with id', thing.get('id'));
+      let thingObject = this.store.find('thing', thing.get('id'));
       var occurrence = this.store.createRecord('occurrence', {
+        thing: thingObject,
         thing_id: thing.get('id')
       });
 
