@@ -4,15 +4,16 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
-    sassOptions: {
-      extension: 'sass'
-    },
     outputPaths: {
       app: {
         css: {
           'app': '/assets/frontend.css'
         }
       }
+    },
+    sassOptions: {
+      extension: 'sass',
+      includePaths: [ 'app/styles' ]
     }
   });
 
