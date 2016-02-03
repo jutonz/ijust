@@ -6,7 +6,7 @@ export default Ember.Controller.extend({
   existingThings: Ember.A(),
 
   actions: {
-    addThing: function(content) {
+    addThing: function() {
       let thing = this.get('existingThings.firstObject');
       console.log("would have added:", thing.get('content'));
     },
