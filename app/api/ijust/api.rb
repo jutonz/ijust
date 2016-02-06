@@ -58,19 +58,23 @@ module Ijust
       # POST /things
       desc "Add a thing"
       params do
-        requires :content, type: String, desc: "e.g. 'went to the store'"
-        optional :created_at, type: Time, default: Time.now, desc: "When it happened. Default is now"
+        requires :thing, type: Hash do
+          requires :content, type: String, desc: "e.g. 'went to the store'"
+          optional :created_at, type: Time, default: Time.now, desc: "When it happened. Default is now"
+        end
       end
       post do
-        if thing = Thing.find_by(content: params[:content])
-          occurrence = thing.occurrences.build({
-            created_at: params[:created_at]
+        thing = params[:thing]
+
+        if existing_thing = Thing.find_by(content: thing.content)
+          occurrence = existing_thing.occurrences.build({
+            created_at: thing.created_at
           })
           occurrence.save
         else
           Thing.create!({
-            content:    params[:content],
-            created_at: params[:created_at]
+            content:    thing.content,
+            created_at: thing.created_at
           })
         end
       end
