@@ -35,11 +35,11 @@ module Ijust
       desc "Get things"
       get do
         if (qs = request.query_string).empty?
-          Thing.all
+          Thing.take(20)
         else
           qs = Rack::Utils.parse_nested_query qs
           if content = qs["content"]
-            Thing.where "content LIKE '%#{content}%'"
+            Thing.where("content LIKE '%#{content}%'").take(20)
           end
         end
       end
