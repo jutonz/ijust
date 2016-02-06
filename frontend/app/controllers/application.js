@@ -47,8 +47,18 @@ export default Ember.Controller.extend({
         // No results if no query
         this.set('existingThings', Ember.A());
       } else {
+        // Clear first property on existing results
+        let firstExstingThing = this.get('existingThings.firstObject');
+        if (firstExstingThing) {
+          firstExstingThing.set('first', false);
+        }
+
         this.store.query('thing', { content: content }).then((existing) => {
           this.set('existingThings', existing);
+          let firstExistingThing = this.get('existingThings.firstObject');
+          if (firstExistingThing) {
+            firstExistingThing.set('first', true);
+          }
         });
       }
     }
