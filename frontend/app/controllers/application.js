@@ -10,32 +10,25 @@ export default Ember.Controller.extend({
       // If there were search results, add an occurrence to the first result.
       // Otherwise, create a new thing with the given content.
       let existingThing = this.get('existingThings.firstObject');
-      let content = "";
 
       if (existingThing) {
         // Add occurrence to exising thing
-        content = existingThing.get('content');
-        console.log('adding occurrence to existing thing with content:', content);
-
         let thingId = existingThing.get('id');
         let occurrence = this.store.createRecord('occurrence', {
           thing_id: thingId,
         });
 
-        occurrence.save().then(() => {
-          console.log('acced occurrence!');
-          this.set('content', '')
-        });
+        occurrence.save();
       } else {
         // Create new thing
-        content = this.get('content');
-        console.log('creating new thing with content:', content);
+        let content = this.get('content');
         let newThing = this.store.createRecord('thing', {
-          content: this.get('content')
+          content: content
         });
 
         newThing.save().then(() => {
-          this.set('content', '');
+          // Trigger re-render so you see your shiney new thing
+          this.send('setContent', content);
         });
       }
     },
