@@ -41,10 +41,9 @@ export default Ember.Controller.extend({
         this.set('existingThings', Ember.A());
       } else {
         // Clear first property on existing results
-        let firstExstingThing = this.get('existingThings.firstObject');
-        if (firstExstingThing) {
-          firstExstingThing.set('first', false);
-        }
+        this.get('existingThings').filterBy('first').forEach((thing) => {
+          thing.set('first', false);
+        });
 
         this.store.query('thing', { content: content }).then((existing) => {
           this.set('existingThings', existing);

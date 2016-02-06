@@ -1,5 +1,22 @@
-.thing.content
-  padding: 10px
+$bg-color: white
+$first-color: #7CE700
+
+.thing
+  margin: 10px
+  margin-left: auto
+  margin-right: auto
+  padding-top: 3px
+  padding-bottom: 3px
+  min-width: 500px
+  max-width: 500px
+  border-radius: 5px
+
+  &:hover
+    background-color: darken( $bg-color, 5% )
 
 .first
-  background-color: red
+  .content
+    background-color: $first-color
+
+    &:hover
+      background-color: darken( $first-color, 5% )
