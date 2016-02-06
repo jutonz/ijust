@@ -8,15 +8,17 @@ module Ijust
 
       desc "Create an occurrence"
       params do
-        requires :thing_id, type: Integer, desc: "ID of the associated thing"
-        optional :created_at, type: Time, default: Time.now, desc: "When it happened. Default is now"
+        requires :occurrence, type: Hash do
+          requires :thing_id, type: Integer, desc: "ID of the associated thing"
+          optional :created_at, type: Time, default: Time.now, desc: "When it happened. Default is now"
+        end
       end
       post do
-        thing = Thing.find(params[:thing_id])
+        occurrence = params[:occurrence]
+        thing      = Thing.find occurrence.thing_id
         occurrence = thing.occurrences.build({
           created_at: params[:created_at]
         }).save
-        occurrence
       end
       route_param :id do
 
@@ -72,10 +74,16 @@ module Ijust
           })
           occurrence.save
         else
-          Thing.create!({
+          new_thing = Thing.create!({
             content:    thing.content,
             created_at: thing.created_at
           })
+
+          new_thing.occurrences.build({
+            created_at: thing.created_at
+          })
+
+          new_thing.save
         end
       end
 

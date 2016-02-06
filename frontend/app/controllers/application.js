@@ -16,6 +16,16 @@ export default Ember.Controller.extend({
         // Add occurrence to exising thing
         content = existingThing.get('content');
         console.log('adding occurrence to existing thing with content:', content);
+
+        let thingId = existingThing.get('id');
+        let occurrence = this.store.createRecord('occurrence', {
+          thing_id: thingId,
+        });
+
+        occurrence.save().then(() => {
+          console.log('acced occurrence!');
+          this.set('content', '')
+        });
       } else {
         // Create new thing
         content = this.get('content');
@@ -26,7 +36,7 @@ export default Ember.Controller.extend({
 
         newThing.save().then(() => {
           this.set('content', '');
-        })
+        });
       }
     },
 
