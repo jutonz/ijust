@@ -39,7 +39,18 @@ module Ijust
         else
           qs = Rack::Utils.parse_nested_query qs
           if content = qs["content"]
-            Thing.where("content LIKE '%#{content}%'").take(20)
+
+            # If someone searches for "store went", we want to return the
+            # thing "went to the store".
+            #
+            # Achieve this by splitting the search on space and having one big
+            # "content LIKE %{term1} AND content LIKE ${term2}" query
+
+            words      = content.split " "
+            subqueries = words.map { |word| "content LIKE '%#{word}%'" }
+            big_query  = subqueries * " AND "
+
+            Thing.where(big_query).take(20)
           end
         end
       end
