@@ -2,7 +2,7 @@
 {{#link-to 'things'}}Things{{/link-to}}
 
 <h3>Add a thing</h3>
-{{input type="text" value=content key-up="setContent" action='addThing' autofocus="true"}}<br>
+{{input type="text" value=content key-up="setContent" enter='addThing' autofocus="true"}}<br>
 {{#each existingThings as |existingThing|}}
   {{thing-suggestion model=existingThing}}
 {{/each}}
